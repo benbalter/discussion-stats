@@ -1,0 +1,27 @@
+query ($owner: String!, $repo: String!, $endCursor: String) {
+  repository(owner: $owner, name: $repo) {
+    discussions(first: 100, after: $endCursor, orderBy: {field: CREATED_AT, direction: DESC}) {
+      pageInfo {
+          hasNextPage
+          endCursor
+        }
+      nodes {
+        title
+        createdAt
+        upvoteCount
+        author {
+          login
+        }
+        category {
+          name
+        }
+        comments(first: 100) {
+          totalCount
+        }
+        reactions(first: 100) {
+          totalCount
+        }
+      }
+    }
+  }
+}
